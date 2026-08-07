@@ -22,9 +22,11 @@ Key highlights:
 
 ## 📊 Result & Visualizations
 
-![Fourier Integral Spectrum & Reconstruction](./assets/fourier_integral_spectrum_reconstruction.png)
+| Continuous Frequency Spectrum | Signal Reconstruction |
+|---|---|
+| ![Fourier Spectrum](./assets/Continuous_Fourier_Coefficients.png) | ![Signal Reconstruction](./assets/Signal_Reconstruction_via_Fourier_Integral.png) |
 
-> **Observation:** The upper plot illustrates the continuous frequency spectrum $A(\omega)$ and $B(\omega)$. The lower plot demonstrates the accurate reconstruction of the truncated cosine pulse from its spectral components evaluated up to $\omega = 25$.
+> **Observation:** The continuous spectrum plot illustrates $A(\omega)$ and $B(\omega)$ over $\omega \in [0, 25]$. The reconstructed signal demonstrates physical convergence to the truncated cosine wave, accurately resolving the discontinuities at $x = 0$ and $x = \pi$.
 
 ---
 
