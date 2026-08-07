@@ -25,7 +25,7 @@ Key highlights:
 
 | 2D Equipotential Contours | 3D Potential Surface |
 |---|---|
-| ![2D Contours](./assets/2D_Equipotential_Contours.png) | ![3D Surface](./3D_Potential_Surface.png) |
+| ![2D Contours](./assets/2D_Equipotential_Contours.png) | ![3D Surface](./assets/3D_Potential_Surface.png) |
 
 > **Observation:** The contour plot illustrates the smooth gradient of potential from $100\text{ V}$ at the inner conductor down to $0\text{ V}$ at the outer boundary, demonstrating physical convergence after 1000 iterations.
 
