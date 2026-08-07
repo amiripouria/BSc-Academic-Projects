@@ -23,7 +23,7 @@ Key highlights:
 
 | Z-Plane (Original Circle) | W-Plane (Transformed Line) |
 |---|---|
-| ![Z-Plane](./assets/Z_Plane_Original_Circle.png) | ![W-Plane](./assets/W_Plane_Transformed_Line.png) |
+| ![Z-Plane](./assets/Z-Plane_Original_Circle.png) | ![W-Plane](./assets/W-Plane_Transformed_Line.png) |
 
 > **Observation:** The circle in the $z$-plane passes exactly through the origin $(0,0)$. As predicted by complex analysis theory, the inversion mapping $w = 1/z$ transforms any circle passing through the origin into a straight line not passing through the origin in the $w$-plane.
 
