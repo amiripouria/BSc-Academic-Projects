@@ -8,6 +8,8 @@ This repository contains selected academic projects, laboratory work, and numeri
 |---|---|---|---|
 | 1 | [Laplace Equation Solver](./01-Engineering-Mathematics/Laplace-Equation-Solver) | Engineering Mathematics | MATLAB, LaTeX |
 | 2 | [Exponential Fourier Series](./01-Engineering-Mathematics/Exponential-Fourier-Series) | Engineering Mathematics | MATLAB, LaTeX |
+| 3 | [Fourier Integral Analysis](./01-Engineering-Mathematics/Fourier-Integral-Analysis) | Engineering Mathematics | MATLAB, LaTeX |
+| 4 | [Complex Inversion Mapping](./01-Engineering-Mathematics/Complex-Analysis-Inversion) | Engineering Mathematics | MATLAB, LaTeX |
 
 ---
 ## 🛠️ Languages & Tools
