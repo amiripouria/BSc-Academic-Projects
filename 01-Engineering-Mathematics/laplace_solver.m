@@ -2,7 +2,7 @@
 % Numerical Solution of Laplace's Equation (Finite Difference Method)
 % =========================================================================
 
-% --- 1. Define Domain and Parameters ---
+% 1. Define Domain and Parameters
 a = 2; b = 2;           % Outer domain dimensions
 x0 = 0.5; y0 = 0.5;     % Inner conductor offset
 c = 1; d = 1;           % Inner conductor dimensions
@@ -13,7 +13,7 @@ nx = 101; ny = 101;     % Number of grid points
 dx = a / (nx - 1);
 dy = b / (ny - 1);
 
-% --- 2. Initialize the Grid ---
+% 2. Initialize the Grid
 V = zeros(nx, ny);
 
 % Determine grid indices for the inner conductor
@@ -25,7 +25,7 @@ y_end = round((y0 + d) / dy) + 1;
 % Set the initial boundary condition for the inner conductor
 V(x_start:x_end, y_start:y_end) = V0;
 
-% --- 3. Iterative Numerical Solution (Jacobi Method) ---
+% 3. Iterative Numerical Solution (Jacobi Method)
 iterative_number = 1000;
 
 % Note: A vectorized approach is used here for professional MATLAB performance
@@ -38,7 +38,7 @@ for iter = 1:iterative_number
     V(x_start:x_end, y_start:y_end) = V0;
 end
 
-% --- 4. Visualization ---
+% 4. Visualization
 X_axis = linspace(0, a, nx);
 Y_axis = linspace(0, b, ny);
 [X, Y] = meshgrid(X_axis, Y_axis);
