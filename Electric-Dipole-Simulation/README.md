@@ -10,7 +10,7 @@ This project models the spatial distribution of the electric field $\mathbf{E}(x
 Key highlights:
 - Application of the **Principle of Superposition** for continuous 2D grid coordinates.
 - Normalization of electric field vectors to illustrate flux direction lines without spatial distortion near point singularities.
-- 3D surface mapping of potential wells and peaks ($V1 + V2$).
+- 3D surface mapping of potential wells and peaks ($V_1 + V_2$).
 
 ---
 
@@ -22,9 +22,9 @@ Key highlights:
 
 ## 📊 Visualizations
 
-| Normalized Vector Field | 3D Potential Surface |
-|---|---|
-| ![E-Field Vectors](./assets/E_Field_Vectors.png) | ![3D Potential Surface](./assets/3D_Potential_Surface.png) |
+| Normalized Vector Field | E-Field Strength Contour | 3D Potential Surface |
+|---|---|---|
+| ![E-Field Vectors](./assets/Electric_Field.png) | ![E-Field Contour](./assets/E_Field_Strength_Contour.png) | ![3D Potential Surface](./assets/Electric_Potential_Surface.jpg) |
 
 ---
 
