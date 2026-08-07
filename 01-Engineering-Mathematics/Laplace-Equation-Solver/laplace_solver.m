@@ -1,5 +1,5 @@
 % =========================================================================
-% Numerical Solution of Laplace's Equation (Finite Difference Method)
+% Numerical Solution of Laplace's Equation
 % =========================================================================
 
 % 1. Define Domain and Parameters
