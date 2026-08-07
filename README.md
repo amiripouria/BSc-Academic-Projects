@@ -7,7 +7,7 @@ This repository contains selected academic projects, laboratory work, and numeri
 | # | Project Name | Field / Subject | Tools Used |
 |---|---|---|---|
 | 1 | [Laplace Equation Solver](./01-Engineering-Mathematics/Laplace-Equation-Solver) | Engineering Mathematics | MATLAB, LaTeX |
-| 2 | [Exponential Fourier Series](./02-Signals-and-Systems) | Signals & Systems | MATLAB, LaTeX |
+| 2 | [Exponential Fourier Series](./01-Engineering-Mathematics/Exponential-Fourier-Series) | Engineering Mathematics | MATLAB, LaTeX |
 
 ---
 ## 🛠️ Languages & Tools
