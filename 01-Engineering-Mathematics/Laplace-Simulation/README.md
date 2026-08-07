@@ -1,4 +1,4 @@
-# 2D Laplace's Equation Solver (Coaxial Cable Simulation)
+# 2D Laplace's Equation Solver
 
 Numerical solution and finite-difference implementation of Laplace's equation to determine electric potential distribution in a rectangular coaxial cable.
 
