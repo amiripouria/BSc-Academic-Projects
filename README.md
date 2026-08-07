@@ -5,12 +5,12 @@ This repository contains selected academic projects, laboratory work, and numeri
 ## 📁 Repository Structure
 
 | # | Project Name | Field / Subject | Tools Used |
-|---|---|---|---|---|
+|---|---|---|---|
 | 1 | [Laplace Equation Solver](./Engineering-Mathematics/Laplace-Equation-Solver) | Engineering Mathematics | MATLAB, LaTeX |
 | 2 | [Exponential Fourier Series](./Engineering-Mathematics/Exponential-Fourier-Series) | Engineering Mathematics | MATLAB, LaTeX |
 | 3 | [Fourier Integral Analysis](./Engineering-Mathematics/Fourier-Integral-Analysis) | Engineering Mathematics | MATLAB, LaTeX |
 | 4 | [Complex Inversion Mapping](./Engineering-Mathematics/Complex-Analysis-Inversion) | Engineering Mathematics | MATLAB, LaTeX |
-| 5 | [Electric Dipole](./Electric-Dipole_Simulation) | Engineering Electromagnetics | MATBAL, LaTex |
+| 5 | [Electric Dipole Simulation](./Electric-Dipole-Simulation) | Engineering Electromagnetics | MATLAB, LaTeX |
 
 ---
 ## 🛠️ Languages & Tools
