@@ -2,6 +2,8 @@
 
 Computational modeling and mathematical verification of fundamental Digital Signal Processing (DSP) concepts using MATLAB.
 
+---
+
 ## 📌 Project Overview
 This project explores the core properties of discrete-time systems, focusing on Linearity, Time-Invariance (LTI), and system stability. By leveraging MATLAB, theoretical DSP concepts are modeled and visualized to analyze how digital filters and systems respond to various input sequences.
 
@@ -16,13 +18,16 @@ Key highlights:
 ## 📂 Deliverables
 - **MATLAB Script:** [`lti_system_analysis.m`](./lti_system_analysis.m)
 - **Technical LaTeX Report:** [`lti_system_report.pdf`](./lti_system_report.pdf)
+
 ---
 
 ## 📊 Visualizations
 
-| Normalized Vector Field | E-Field Strength Contour | 3D Potential Surface |
+| Convolution vs. Filtering | Non-Zero Initial Condition | BIBO Stability Check |
 |---|---|---|
-| ![E-Field Vectors](./assets/Electric_Field.png) | ![E-Field Contour](./assets/E_Field_Strength_Contour.png) | ![3D Potential Surface](./assets/Electric_Potential_Surface.jpg) |
+| ![Convolution vs Filtering](./assets/Convolution_vs_Filtering.png) | ![Non-Zero Initial Condition](./assets/Non-Zero_Initial_Condition.png) | ![BIBO Stability Check](./assets/Stability_Check.png) |
+
+> **Observation:** The plots confirm theoretical DSP principles: zero-padded filtering perfectly aligns with linear convolution, while the stability check visually demonstrates an unstable impulse response diverging over time.
 
 ---
 
