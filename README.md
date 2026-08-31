@@ -11,6 +11,8 @@ This repository contains selected academic projects, laboratory work, and numeri
 | 3 | [Fourier Integral Analysis](./Engineering-Mathematics/Fourier-Integral-Analysis) | Engineering Mathematics | MATLAB, LaTeX |
 | 4 | [Complex Inversion Mapping](./Engineering-Mathematics/Complex-Analysis-Inversion) | Engineering Mathematics | MATLAB, LaTeX |
 | 5 | [Electric Dipole Simulation](./Electric-Dipole-Simulation) | Engineering Electromagnetics | MATLAB, LaTeX |
+| 6 | [Discrete-Time LTI Systems](./Digital-Signal-Processing/01-LTI-System) | Digital Signal Processing | MATLAB, LaTeX |
+| 7 | [DTFT Analysis & Convolution](./Digital-Signal-Processing/DTFT-Analysis) | Digital Signal Processing | MATLAB, LaTeX |
 
 ---
 ## 🛠️ Languages & Tools
