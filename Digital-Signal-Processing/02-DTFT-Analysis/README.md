@@ -11,8 +11,8 @@ Key highlights:
 - **Convolution Theorem:** Demonstrated the mathematical equivalence of direct linear convolution and zero-padded circular convolution in the frequency domain (using FFT/IFFT).
 
 ## 📂 Deliverables
-- **MATLAB Script:** [`fourier_analysis.m`](./fourier_analysis.m)
-- **Technical LaTeX Report:** [`fourier_report.pdf`](./fourier_report.pdf)
+- **MATLAB Script:** [`DTFT_Analysis.m`](./DTFT_Analysis.m)
+- **Technical LaTeX Report:** [`DTFT_Report.pdf`](./DTFT_Report.pdf)
 
 ## 📊 Visualizations
 
