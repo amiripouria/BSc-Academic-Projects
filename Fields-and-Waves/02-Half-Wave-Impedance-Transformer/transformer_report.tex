@@ -1,0 +1,90 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\geometry{margin=1in, headheight=40pt}
+
+% Define code listing colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+% --- Header and Footer Configuration ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textbf{Pouria Amiri} \\ \footnotesize Digital Signal Processing}
+\rhead{\footnotesize K. N. Toosi University of Technology \hspace{0.2cm} \raisebox{-0.3\height}{\includegraphics[height=1.2cm]{logo.png}}}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+
+\title{\textbf{Digital Signal Processing Laboratory}\\ \Large Discrete-Time Fourier Transform (DTFT), FFT, and Convolution Properties}
+\author{Pouria Amiri \\ \href{https://www.linkedin.com/in/pouria-amiri-9843a333a/}{Linkedin}
+	\href{https://github.com/amiripouria}{GitHub}}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{abstract}
+		This report details the analytical design and computational verification of a half-wavelength dielectric impedance transformer operating at 72 GHz. Theoretical transmission and reflection coefficients are derived using MATLAB for both lossless and lossy dielectric models. These analytical models are subsequently validated against 3D full-wave electromagnetic simulations conducted in CST Studio Suite, demonstrating high correlation. Furthermore, the limiting case of an electrically thin slab is analyzed to evaluate surface impedance behavior.
+	\end{abstract}
+	
+	\section{Theoretical Formulation and Design}
+	The objective is to design a dielectric slab that acts as an impedance transformer, matching free space at an operating frequency of $f = 72\text{ GHz}$. The selected dielectric material possesses a relative permittivity of $\epsilon_r = 3.2$ and a loss tangent of $\tan \delta = 0.0048$.
+	
+	To achieve zero reflection at the design frequency, the electrical thickness of the slab must be exactly one half-wavelength ($\lambda/2$). The phase velocity $u_p$ and the required physical thickness $d$ are calculated as follows:
+	\begin{equation}
+		u_p = \frac{c}{\sqrt{\epsilon_r}} = \frac{3 \times 10^8}{\sqrt{3.2}} \approx 1.677 \times 10^8 \text{ m/s}
+	\end{equation}
+	\begin{equation}
+		\lambda = \frac{u_p}{f} = \frac{1.677 \times 10^8}{72 \times 10^9} \approx 2.33 \text{ mm}
+	\end{equation}
+	\begin{equation}
+		d = \frac{\lambda}{2} = 1.16 \text{ mm}
+	\end{equation}
+	
+	\section{Numerical Modeling via MATLAB}
+	To predict the frequency response of the slab, the total reflection ($\Gamma$) and transmission ($T$) coefficients were modeled computationally across a frequency sweep from 50.4 GHz to 93.6 GHz. The wave propagation was evaluated under two conditions:
+	\begin{itemize}
+		\item \textbf{Lossless Case:} The attenuation constant $\alpha$ is assumed to be zero, relying solely on the phase constant $\beta = \omega\sqrt{\mu_0 \epsilon_0 \epsilon_r}$.
+		\item \textbf{Lossy Case:} The complex propagation constant $\gamma = \sqrt{j\omega\mu_0(\sigma + j\omega\epsilon')}$ is utilized, incorporating the material's conductivity derived from the loss tangent.
+	\end{itemize}
+	The MATLAB results confirmed a resonance at exactly 72 GHz, where transmission is maximized and reflection drops to a localized minimum.
+	
+	\section{Full-Wave Simulation in CST Studio Suite}
+	To validate the 1D analytical model, a 3D full-wave simulation was constructed in CST Studio Suite. 
+	\begin{itemize}
+		\item \textbf{Geometry \& Background:} A unit cell cube of the dielectric was modeled. The background spacing parameters were strictly set to $0.0$ in the X and Y directions to prevent structural deformation of the periodic boundaries.
+		\item \textbf{Boundary Conditions:} Floquet boundaries were applied by setting the X and Y boundaries to ``Unit Cell'' to simulate an infinite planar slab. The Z-axis boundaries were configured to ``Open (add space)'' to properly distance the waveguide ports and match free space.
+	\end{itemize}
+	The S-parameters ($S_{11}$ and $S_{21}$) extracted from CST were exported and overlaid with the MATLAB analytical curves. The numerical and full-wave results exhibited excellent agreement.
+	
+	\section{Thin Slab Approximation}
+	To evaluate the limiting behavior of the structure, the physical thickness was mathematically reduced to $d = \lambda/100$. In this electrically thin regime, the dielectric acts merely as a surface impedance. Consequently, the reflection coefficient $\Gamma$ approaches 0, and the transmission coefficient $T$ approaches 1 across the entire broadband spectrum, overriding the resonant behavior observed in the half-wavelength structure.
+\end{document}
