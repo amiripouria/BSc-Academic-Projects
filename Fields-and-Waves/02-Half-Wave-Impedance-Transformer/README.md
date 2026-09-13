@@ -10,14 +10,24 @@ This project investigates the wave propagation characteristics (Reflection and T
 Key analytical phases:
 - **Mathematical Derivation:** Calculation of complex propagation constants ($\gamma$) and intrinsic impedances ($\eta$) for lossless and lossy ($\tan \delta = 0.0048$) dielectric materials.
 - **Full-Wave Validation:** Setup of Floquet unit-cell boundaries in **CST Studio Suite** to simulate an infinite planar array, extracting $S_{11}$ and $S_{21}$ parameters.
-- **Limiting Case Analysis:** Evaluation of an electrically thin slab ($d = \lambda/100$) demonstrating frequency-independent surface impedance behavior.
+- **Limiting Case Analysis:** Evaluation of an electrically thin slab ($d \approx 0$) demonstrating frequency-independent surface impedance behavior.
 
 ---
 
 ## 📂 Deliverables
-- **MATLAB Code:** [`impedance_transformer_analysis.m`](./src/impedance_transformer_analysis.m) - Computes coefficients and plots error comparisons against CST data.
-- **CST Simulation Data:** 3D model files and exported S-parameter text files (`Reflection.txt`, `Transmission.txt`).
+- **MATLAB Code:** [`impedance_transformer_analysis.m`](./src/impedance_transformer_analysis.m) - Computes coefficients and plots error comparisons.
+- **CST Simulation Data:** [`cst_simulation`](./cst_simulation/) - 3D model files and exported S-parameter text files.
 - **Technical Report:** [`transformer_report.pdf`](./docs/transformer_report.pdf) - Formal LaTeX documentation detailing equations and boundary conditions.
+
+---
+
+## 📊 Visualizations
+
+| Theoretical Coefficients | Analytical vs. CST Simulation | Thin Slab Limit |
+|:---:|:---:|:---:|
+| ![Theoretical Coefficients](./assets/Theoretical-Coefficients.png) | ![Analytical vs CST](./assets/Analytical-vs-CST.png) | ![Thin Slab Limit](./assets/Thin-Slab-Limit.png) |
+
+> **Observation:** The analytical MATLAB model and the 3D full-wave CST simulation demonstrate near-perfect correlation, successfully validating the half-wavelength matching condition at the 72 GHz resonance frequency.
 
 ---
 
