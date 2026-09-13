@@ -8,7 +8,6 @@
 \usepackage{fancyhdr}
 \geometry{margin=1in, headheight=40pt}
 
-% Define code listing colors
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -34,7 +33,6 @@
 }
 \lstset{style=mystyle}
 
-% --- Header and Footer Configuration ---
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{\textbf{Pouria Amiri} \\ \footnotesize Fields and Waves}
@@ -48,43 +46,102 @@
 \date{\today}
 
 \begin{document}
+\maketitle
+
+\begin{abstract}
+	This report details the analytical design and computational verification of a half-wavelength dielectric impedance transformer operating at 72 GHz. Theoretical transmission and reflection coefficients are derived using MATLAB for both lossless and lossy dielectric models. These analytical models are subsequently validated against 3D full-wave electromagnetic simulations conducted in CST Studio Suite, demonstrating high correlation. Furthermore, the limiting case of an electrically thin slab is analyzed to evaluate surface impedance behavior.
+\end{abstract}
+
+\section{Theoretical Formulation and Design}
+The objective is to design a dielectric slab that acts as an impedance transformer, matching free space at an operating frequency of $f = 72\text{ GHz}$. The selected dielectric material possesses a relative permittivity of $\epsilon_r = 3.2$ and a loss tangent of $\tan \delta = 0.0048$.
+
+To achieve zero reflection at the design frequency, the electrical thickness of the slab must be exactly one half-wavelength ($\lambda/2$). The phase velocity $u_p$ and the required physical thickness $d$ are calculated as follows:
+\begin{equation}
+	u_p = \frac{c}{\sqrt{\epsilon_r}} = \frac{3 \times 10^8}{\sqrt{3.2}} \approx 1.677 \times 10^8 \text{ m/s}
+\end{equation}
+\begin{equation}
+	\lambda = \frac{u_p}{f} = \frac{1.677 \times 10^8}{72 \times 10^9} \approx 2.33 \text{ mm}
+\end{equation}
+\begin{equation}
+	d = \frac{\lambda}{2} = 1.16 \text{ mm}
+\end{equation}
+
+Beyond the physical dimensions, the interaction of the electromagnetic wave with the slab boundaries governs the overall transmission and reflection. The intrinsic impedance of the free space ($\eta_0$) and the dielectric region ($\eta_2$) are used to compute the localized interface reflection coefficient:
+\begin{equation}
+	\Gamma_{12} = \frac{\eta_2 - \eta_0}{\eta_2 + \eta_0}
+\end{equation}
+Accounting for multiple internal reflections within the slab, the total effective reflection ($\Gamma_{Slab}$) and transmission ($T_{Slab}$) coefficients are mathematically defined as:
+\begin{equation}
+	\Gamma_{Slab} = \frac{\Gamma_{12} + \Gamma_{23}e^{-2\gamma_2 d}}{1 + \Gamma_{12}\Gamma_{23}e^{-2\gamma_2 d}}
+\end{equation}
+\begin{equation}
+	T_{Slab} = \frac{T_{12}T_{23}e^{-\gamma_2 d}e^{\gamma_3 d}}{1 + \Gamma_{12}\Gamma_{23}e^{-2\gamma_2 d}}
+\end{equation}
+
+\section{Numerical Modeling via MATLAB}
+To predict the frequency response of the slab, the total reflection ($\Gamma$) and transmission ($T$) coefficients were modeled computationally across a frequency sweep. The wave propagation was evaluated under two conditions:
+\begin{itemize}
+	\item \textbf{Lossless Case:} The attenuation constant $\alpha$ is assumed to be zero, relying solely on the phase constant $\beta = \omega\sqrt{\mu_0 \epsilon_0 \epsilon_r}$.
+	\item \textbf{Lossy Case:} The complex propagation constant $\gamma = \sqrt{j\omega\mu_0(\sigma + j\omega\epsilon')}$ is utilized, incorporating the material's conductivity derived from the loss tangent.
+\end{itemize}
+
+The core MATLAB implementation for the lossy formulation calculates the complex propagation constants and interface variables in a fully vectorized format to efficiently generate the frequency response:
+
+\begin{lstlisting}[language=Matlab, caption=Core MATLAB Implementation for Lossy Dielectric Slab]
+% Lossy Slab Formulation (sigma > 0)
+eps_prime = eps_0 .* eps_r;
+sigma = tan_delta .* w .* eps_prime;
+
+% Complex propagation constant and intrinsic impedance
+gamma2_lossy = sqrt(1i .* w .* u0 .* (1i .* w .* eps_prime + sigma));
+eta2_lossy = sqrt((1i .* w .* u0) ./ (1i .* w .* eps_prime + sigma));
+
+% Interface Coefficients
+Gamma12_lossy = (eta2_lossy - eta0) ./ (eta2_lossy + eta0);
+Gamma23_lossy = (eta0 - eta2_lossy) ./ (eta0 + eta2_lossy);
+T12_lossy = (2 .* eta2_lossy) ./ (eta2_lossy + eta0);
+T23_lossy = (2 .* eta0) ./ (eta0 + eta2_lossy);
+
+% Total Slab Coefficients incorporating multiple reflections
+Gamma_Slab_lossy = (Gamma12_lossy + (Gamma23_lossy .* exp(-2 .* gamma2_lossy .* d))) ./ ...
+(1 + Gamma12_lossy .* Gamma23_lossy .* exp(-2 .* gamma2_lossy .* d));
+T_Slab_lossy = (T12_lossy .* T23_lossy .* exp(-gamma2_lossy .* d) .* exp(1i .* beta0 .* d)) ./ ...
+(1 + Gamma12_lossy .* Gamma23_lossy .* exp(-2 .* gamma2_lossy .* d));
+
+\end{lstlisting}
+
+The MATLAB results confirmed a resonance at exactly 72 GHz, where transmission is maximized and reflection drops to a localized minimum.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{assets/Theoretical-Coefficients.png}
+	\caption{Theoretical transmission and reflection coefficients (Lossless vs. Lossy) demonstrating perfect matching at 72 GHz.}
+	\label{fig:theory}
+\end{figure}
+
+\section{Full-Wave Simulation in CST Studio Suite}
+To validate the 1D analytical model, a 3D full-wave simulation was constructed in CST Studio Suite. 
+\begin{itemize}
+	\item \textbf{Geometry \& Background:} A unit cell cube of the dielectric was modeled. The background spacing parameters were strictly set to $0.0$ in the X and Y directions to prevent structural deformation of the periodic boundaries.
+	\item \textbf{Boundary Conditions:} Floquet boundaries were applied by setting the X and Y boundaries to ``Unit Cell'' to simulate an infinite planar slab. The Z-axis boundaries were configured to ``Open (add space)'' to properly distance the waveguide ports and match free space.
+\end{itemize}
+The S-parameters ($S_{11}$ and $S_{21}$) extracted from CST were exported and overlaid with the MATLAB analytical curves. The numerical and full-wave results exhibited excellent agreement.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{assets/Analytical-vs-CST.png}
+	\caption{Comparison of analytical MATLAB data and 3D full-wave CST simulation results in dB.}
+	\label{fig:cst_comp}
+\end{figure}
+
+\section{Thin Slab Approximation}
+To evaluate the limiting behavior of the structure, the physical thickness was mathematically reduced ($d \approx 0$) to simulate a highly sub-wavelength profile. In this electrically thin regime, the dielectric acts merely as a surface impedance. Consequently, the reflection coefficient $\Gamma$ approaches 0, and the transmission coefficient $T$ approaches 1 across the entire broadband spectrum, overriding the resonant behavior observed in the half-wavelength structure.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{assets/Thin-Slab-Limit.png}
+	\caption{Transmission and reflection coefficients at the thin slab limit ($d \approx 0$).}
+	\label{fig:thin_slab}
+\end{figure}
 	
-	\maketitle
-	
-	\begin{abstract}
-		This report details the analytical design and computational verification of a half-wavelength dielectric impedance transformer operating at 72 GHz. Theoretical transmission and reflection coefficients are derived using MATLAB for both lossless and lossy dielectric models. These analytical models are subsequently validated against 3D full-wave electromagnetic simulations conducted in CST Studio Suite, demonstrating high correlation. Furthermore, the limiting case of an electrically thin slab is analyzed to evaluate surface impedance behavior.
-	\end{abstract}
-	
-	\section{Theoretical Formulation and Design}
-	The objective is to design a dielectric slab that acts as an impedance transformer, matching free space at an operating frequency of $f = 72\text{ GHz}$. The selected dielectric material possesses a relative permittivity of $\epsilon_r = 3.2$ and a loss tangent of $\tan \delta = 0.0048$.
-	
-	To achieve zero reflection at the design frequency, the electrical thickness of the slab must be exactly one half-wavelength ($\lambda/2$). The phase velocity $u_p$ and the required physical thickness $d$ are calculated as follows:
-	\begin{equation}
-		u_p = \frac{c}{\sqrt{\epsilon_r}} = \frac{3 \times 10^8}{\sqrt{3.2}} \approx 1.677 \times 10^8 \text{ m/s}
-	\end{equation}
-	\begin{equation}
-		\lambda = \frac{u_p}{f} = \frac{1.677 \times 10^8}{72 \times 10^9} \approx 2.33 \text{ mm}
-	\end{equation}
-	\begin{equation}
-		d = \frac{\lambda}{2} = 1.16 \text{ mm}
-	\end{equation}
-	
-	\section{Numerical Modeling via MATLAB}
-	To predict the frequency response of the slab, the total reflection ($\Gamma$) and transmission ($T$) coefficients were modeled computationally across a frequency sweep from 50.4 GHz to 93.6 GHz. The wave propagation was evaluated under two conditions:
-	\begin{itemize}
-		\item \textbf{Lossless Case:} The attenuation constant $\alpha$ is assumed to be zero, relying solely on the phase constant $\beta = \omega\sqrt{\mu_0 \epsilon_0 \epsilon_r}$.
-		\item \textbf{Lossy Case:} The complex propagation constant $\gamma = \sqrt{j\omega\mu_0(\sigma + j\omega\epsilon')}$ is utilized, incorporating the material's conductivity derived from the loss tangent.
-	\end{itemize}
-	The MATLAB results confirmed a resonance at exactly 72 GHz, where transmission is maximized and reflection drops to a localized minimum.
-	
-	\section{Full-Wave Simulation in CST Studio Suite}
-	To validate the 1D analytical model, a 3D full-wave simulation was constructed in CST Studio Suite. 
-	\begin{itemize}
-		\item \textbf{Geometry \& Background:} A unit cell cube of the dielectric was modeled. The background spacing parameters were strictly set to $0.0$ in the X and Y directions to prevent structural deformation of the periodic boundaries.
-		\item \textbf{Boundary Conditions:} Floquet boundaries were applied by setting the X and Y boundaries to ``Unit Cell'' to simulate an infinite planar slab. The Z-axis boundaries were configured to ``Open (add space)'' to properly distance the waveguide ports and match free space.
-	\end{itemize}
-	The S-parameters ($S_{11}$ and $S_{21}$) extracted from CST were exported and overlaid with the MATLAB analytical curves. The numerical and full-wave results exhibited excellent agreement.
-	
-	\section{Thin Slab Approximation}
-	To evaluate the limiting behavior of the structure, the physical thickness was mathematically reduced to $d = \lambda/100$. In this electrically thin regime, the dielectric acts merely as a surface impedance. Consequently, the reflection coefficient $\Gamma$ approaches 0, and the transmission coefficient $T$ approaches 1 across the entire broadband spectrum, overriding the resonant behavior observed in the half-wavelength structure.
 \end{document}
