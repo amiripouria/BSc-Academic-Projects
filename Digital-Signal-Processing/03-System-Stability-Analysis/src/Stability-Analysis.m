@@ -8,51 +8,51 @@ clear; clc; close all;
 figure('Name', 'Experiment 4-1: Pole-Zero Plot', 'Position', [100, 100, 800, 400]);
 
 % Part 1: Using direct coefficients
-a1 = [2 5 9 5 3]; %[cite: 2]
-b1 = [5 45 2 1 1]; %[cite: 2]
+a1 = [2 5 9 5 3];
+b1 = [5 45 2 1 1];
 subplot(1, 2, 1);
-zplane(a1, b1); %[cite: 2]
+zplane(a1, b1);
 title('Pole-Zero Plot (Direct Coefficients)');
 grid on;
 
 % Part 2: Using tf2zp
-a2 = [2 5 5 3]; %[cite: 2]
-b2 = [5 45 2 1 1]; %[cite: 2]
-[zeros_val, poles_val, gain_val] = tf2zp(a2, b2); %[cite: 2]
+a2 = [2 5 5 3];
+b2 = [5 45 2 1 1];
+[zeros_val, poles_val, gain_val] = tf2zp(a2, b2);
 subplot(1, 2, 2);
-zplane(zeros_val, poles_val); %[cite: 2]
+zplane(zeros_val, poles_val);
 title('Pole-Zero Plot (Using tf2zp)');
 grid on;
 
 %% Experiment 4-2: System properties and filter types
 figure('Name', 'Experiment 4-2: Filter Stem Plot');
-fc = 0.45; %[cite: 3]
-n = -9.5:1:10.5; %[cite: 3]
-y = 2 * fc * sinc(2 * fc * n); %[cite: 3]
-k = n + 9.5; %[cite: 3]
+fc = 0.45;
+n = -9.5:1:10.5;
+y = 2 * fc * sinc(2 * fc * n);
+k = n + 9.5;
 
-stem(k, y, 'filled'); %[cite: 3]
-title('N = 20'); %[cite: 4]
-axis([0 20 -1 1]); %[cite: 4]
-xlabel('Time index n'); %[cite: 4]
-ylabel('Amplitude'); %[cite: 4]
-grid on; %[cite: 4]
+stem(k, y, 'filled');
+title('N = 20');
+axis([0 20 -1 1]);
+xlabel('Time index n');
+ylabel('Amplitude');
+grid on;
 
 %% Experiment 4-3: Gain of a Highpass Filter
 figure('Name', 'Experiment 4-3: Highpass Filter Gain');
-M = 5; %[cite: 5]
-num = ((-1).^(0:M-1)) / M; %[cite: 5]
+M = 5;
+num = ((-1).^(0:M-1)) / M;
 
 % Note: 'gain' function in the original report is substituted with standard 'freqz'
 [h, w] = freqz(num, 1, 256);
 g = 20 * log10(abs(h)); % Convert to dB
 
-plot(w/pi, g, 'LineWidth', 1.5); %[cite: 5]
+plot(w/pi, g, 'LineWidth', 1.5);
 grid on; %[cite: 5]
-axis([0 1 -50 0.5]); %[cite: 5]
-xlabel('\omega/\pi'); %[cite: 5]
-ylabel('Gain in dB'); %[cite: 5]
-title(['Highpass Filter, M = ', num2str(M)]); %[cite: 5]
+axis([0 1 -50 0.5]);
+xlabel('\omega/\pi');
+ylabel('Gain in dB');
+title(['Highpass Filter, M = ', num2str(M)]);
 
 %% Experiment 4-4: Pole-zero plots for stability
 figure('Name', 'Experiment 4-4: Stability Analysis', 'Position', [150, 150, 800, 400]);
